@@ -1,85 +1,111 @@
-#may need to check first if anything seems odd cause this is what i understood
-#ps i may be gon from 2-4pm
-x=eval(input("How much money is left?(Format all numbers) $"))
+from typing import Final
+from Vending import machine
+def make_list():
+    shopping_list=[] 
+    
 
-#convert to cents
-x=x*100
+    while True:
+        number_amount=eval(input("Amount of different items to be bought: ")) 
+        if number_amount<1: 
+            print("One item must be bought at the least.")
+        else:
+            break 
 
-#base values
-Fifty=50
-Twenty=20
-Ten=10
+    for i in range (number_amount): 
+        while True: 
+            item_name=input("Name of Item: ")
+            mass= eval(input("Number of this item to purchase: "))
+            item=machine(item_name,mass)
+            if item_name=="" or item.get_price()==0:
+                    print("You need to enter a valid name.")
+            elif mass<=0:
+                    print("amount has to be more than 0")
+            else:
+                break
+        shopping_list.append(item)
 
-#conversion to find how many coins is possible
-HundredDollarsAMT=int(x/10000)
-x=x%10000
+    return shopping_list 
 
-FiftyDollarsAMT=int(x/5000)
-x=x%5000
+def display(item_list):
+    print("---------------------------------") 
+    print("These are the items that you have purchased:")
+    for i in range(len(item_list)):
+        print(f"Item {i+1}") 
+        print(item_list[i].total_price()) 
+    
 
-TwentyDollarsAMT=int(x/2000)
-x=x%2000
+def cost_total(item_list):
+    total=0
+    for i in range(len(item_list)): 
+        total += item_list[i].total_price()
+        return total 
 
-TenDollarsAMT=int(x/1000)
-x=x%1000
+shopping_list=make_list() 
+display(shopping_list)
+print(f"Total amount: ${cost_total(shopping_list)}")
 
-FiveDollarsAMT=int(x/500)
-x=x%500
+def bills():
+    FinalCost=0
+    while True:
+            money_input=eval(input("Please enter your cash: ")) 
+            if money_input == 1:
+                FinalCost= money_input + FinalCost
+                while True:
+                    if FinalCost<cost_total(shopping_list):
+                        print("Amount of money not sufficient")
+                        money_input=eval(input("Please enter your cash: "))
+                        FinalCost= money_input + FinalCost
+                    else:
+                        break
+                break
+            elif money_input == 2:
+                FinalCost= money_input + FinalCost
+                while True:
+                    if FinalCost<cost_total(shopping_list):
+                        print("Amount of money not sufficient")
+                        money_input=eval(input("Please enter your cash: "))
+                        FinalCost= money_input + FinalCost
+                    else:
+                        break
+                break
+            elif money_input == 5:
+                FinalCost= money_input + FinalCost
+                while True:
+                    if FinalCost<cost_total(shopping_list):
+                        print("Amount of money not sufficient")
+                        money_input=eval(input("Please enter your cash: "))
+                        FinalCost= money_input + FinalCost
+                    else:
+                        break
+                break
+            elif money_input == 20:
+                FinalCost= money_input + FinalCost
+                while True:
+                    if FinalCost<cost_total(shopping_list):
+                        print("Amount of money not sufficient")
+                        money_input=eval(input("Please enter your cash: "))
+                        FinalCost= money_input + FinalCost
+                    else:
+                        break
+                break    
+            else:
+                print("Machine only accepts $bill of 1,2,5 & 20")
+    
+    money_cent = FinalCost * 100
+    money_change = money_cent - cost_total(shopping_list)*100
+    print(money_change)
 
-OneDollarAMT=int(x/100)
-x=x%100
+    
+    money_cent_change = money_change/ 25
+    money_change_left = money_cent_change// 4
+    money_change_cent = money_cent_change % 4
+    print(f"Change is ${money_change_left} and {money_change_cent} Quarters")
+   
+  
 
-FiftyCentAMT=int(x/50)
-x=x%50
 
-TwentyCentAMT=int(x/20)
-x=x%20
 
-TenCentAMT=int(x/10)
 
-#print if they exist
-print("Your have:")
-if HundredDollarsAMT >0:
-    print(f"{HundredDollarsAMT} $100 Dollar bills")
-else:
-    pass
 
-if FiftyDollarsAMT >0:
-    print(f"{FiftyDollarsAMT} $50 Dollar bills")
-else:
-    pass
 
-if  TwentyDollarsAMT>0:
-    print(f"{TwentyDollarsAMT} $20 Dollar bills")
-else:
-    pass
-
-if  TenDollarsAMT>0:
-    print(f"{TenDollarsAMT} $10 Dollar bills")
-else:
-    pass
-
-if  FiveDollarsAMT>0:
-    print(f"{FiftyDollarsAMT} $5 Dollar bills")
-else:
-    pass
-
-if  OneDollarAMT>0:
-    print(f"{OneDollarAMT} $1 Dollar bills")
-else:
-    pass
-
-if  FiftyCentAMT>0:
-    print(f"{FiftyCentAMT} 50 Cent coins")
-else:
-    pass
-
-if  TwentyCentAMT>0:
-    print(f"{TwentyCentAMT} 20 Cent coins")
-else:
-    pass
-
-if  TenCentAMT>0:
-    print(f"{TenCentAMT} 10 Cent coins")
-else:
-    pass
+print(bills())
