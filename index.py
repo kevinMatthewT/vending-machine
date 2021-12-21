@@ -38,7 +38,7 @@ def cost_total(item_list):
     total=0
     for i in range(len(item_list)): 
         total += item_list[i].total_price()
-        return total 
+    return total 
 
 shopping_list=make_list() 
 display(shopping_list)
