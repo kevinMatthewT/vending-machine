@@ -1,5 +1,5 @@
 from typing import Final
-from Vending_Doc import machine
+from vending import machine
 def make_list():
     shopping_list=[] 
     
@@ -10,7 +10,7 @@ def make_list():
             print("One item must be bought at the least.")
         else:
             break 
-
+    print("items available \n Chocolate:$1.00 , Chips:$0.50 , Soda:$1.25 , Juice:$0.75")
     for i in range (number_amount): 
         while True: 
             item_name=input("Name of Item: ")
@@ -93,19 +93,18 @@ def bills():
     
     money_cent = FinalCost * 100
     money_change = money_cent - cost_total(shopping_list)*100
-    print(money_change)
+    print(f"Here is your change:{int(money_change)}")
 
     
-    money_cent_change = money_change/ 25
-    money_change_left = money_cent_change// 4
-    money_change_cent = money_cent_change % 4
-    print(f"Change is ${money_change_left} and {money_change_cent} Quarters")
+    change_penny = money_change// 25
+    money_change=money_change-(change_penny*25)
+    change_dime = money_change// 10
+    money_change=money_change-(change_dime*10)
+    change_nickel = money_change// 5
+    money_change=money_change-(change_nickel*5)
+    change_cent = money_change
+    print(f"{int(change_penny)} pennies \n {int(change_dime)} dimes \n {int(change_nickel)} nickels \n {int(change_cent)} cents ")
    
-  
-
-
-
-
 
 
 print(bills())
